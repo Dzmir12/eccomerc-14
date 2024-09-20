@@ -114,7 +114,7 @@ function Products() {
             <>
             <motion.div
               key={index} 
-              className="min-w-[25rem] min-h-[30rem] p-[20px] max-[382px]:min-w-[19rem] max-[383px]:p-[5px] max-[383px]:min-h-[23rem] max-[320px]:min-w-[17rem]  glass-container  "
+              className="min-w-[25rem] min-h-[30rem] p-[20px] max-[382px]:min-w-[19rem] max-[383px]:p-[5px] max-[383px]:min-h-[23rem] max-[320px]:min-w-[17rem]  glass-container z-[9996]  "
               initial={{opacity:0,y:100}}
               whileInView={{opacity:1,y:0}}
               transition={{duration:1,delay:index*.09}}

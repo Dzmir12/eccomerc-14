@@ -150,7 +150,7 @@ function CartPage() {
             </div>
           </div>)
          })}
-             <Button totalCount={totalCount} text='$' totalCost={totalCost} position='sticky' />
+             <Button totalCount={totalCount} choosenBtn='SignUp' text='$' totalCost={totalCost} position='sticky' off='show' width='12rem'/>
           </motion.div>
         </motion.div>
       </div>
