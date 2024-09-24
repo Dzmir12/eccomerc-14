@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
-import { ChoosenUserImage, ClikedProduct, Color, Count, Size, User, UserImage, UserInfo } from "../../ContextApi/ContextApi"
+import { ChoosenUserImage, ClikedProduct, Color, Count, Size, User, UserImage, UserInfo, ViewportWidth } from "../../ContextApi/ContextApi"
 import { motion } from "framer-motion"
 import Menu from "../../components/Menu/Menu"
 import pic from './../../../src/assets/product_4.png'
@@ -26,6 +26,7 @@ function CartPage() {
   const url= location.pathname.split('/').filter((x)=>x)
   const today =new Date().getDay();
   const totalCost=clikedProduct.reduce((total, item) => total + item.price, 0);
+  const [viewportWidth, setViewportWidth] = useContext(ViewportWidth);
   const days=['SU','M','T','W','T','F','SA'];
   const getRandomPath = useCallback(() => {
     const path = [
@@ -69,7 +70,7 @@ function CartPage() {
       <p>Total Product Count: {totalCount}</p> */}
 
       {/* left part */}
-      <motion.div drag dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[30%]  p-[20px] flex flex-col gap-5 max-[1062px]:w-[75%] max-[611px]:w-[100%] max-[383px]:p-[13px]">
+      <motion.div drag={viewportWidth>=1000?'false':'true'} dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[30%]  p-[20px] flex flex-col gap-5 max-[1062px]:w-[75%] max-[611px]:w-[100%] max-[383px]:p-[13px]">
         <motion.div  className="w-full  border-2 border-slate-600 h-[60vh] rounded-[3.5rem] flex flex-col justify-center items-center gap-[1rem]">
           {user?<> <div className="h-[13rem] w-[13rem] rounded-full bg-red-600">
             <img src={choosenUserImage} alt="" className="w-full h-full rounded-full" />
@@ -88,7 +89,7 @@ function CartPage() {
       {/* right part */}
       <div className="w-[70%]  flex gap-5 max-[1062px]:flex-col max-[1062px]:items-center max-[1062px]:w-[100%]  ">
         {/* left part */}
-        <motion.div drag dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[60%] h-full  flex flex-col p-[20px] gap-5 max-[1062px]:w-[77%] max-[611px]:w-[100%] max-[462px]:p-[0px]">
+        <motion.div drag={viewportWidth>=1000?'false':'true'} dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[60%] h-full  flex flex-col p-[20px] gap-5 max-[1062px]:w-[77%] max-[611px]:w-[100%] max-[462px]:p-[0px]">
           <motion.div  initial={{scaleX:0}} whileInView={{scaleX:1,x:0}} transition={{duration:1}} className="w-full h-[16vh] border-2 rounded-[3.5rem] border-slate-600 relative max-[1660px]:border-none max-[1062px]:border-solid "><motion.div  initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1,delay:1}}><Menu  left={'17.5%'} top={'3.5rem'} position={'absolute'} perpleLeft={'19.4rem'} yellowLeft={'5.4rem'} yellowLeft2={'40%'} perpleLeft2={'58%'}/> </motion.div></motion.div>
           <motion.div  initial={{scaleY:0}} whileInView={{scaleY:1,x:0}} transition={{duration:1.5,delay:2}} className="w-full h-[80vh] border-2 rounded-[3.5rem] border-slate-600 flex flex-col justify-center items-center gap-2">
           <h4 className="mb-1 text-white text-[3rem] font-semibold text-muted-foreground max-[350px]:text-center">
@@ -110,7 +111,7 @@ function CartPage() {
           </motion.div>
         </motion.div>
         {/* right part */}
-        <motion.div drag dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[40%] h-full py-[20px] pr-[20px] max-[1062px]:w-[77%] max-[611px]:w-[100%] max-[611px]:p-[11px] max-[343px]:p-[4px] ">
+        <motion.div drag={viewportWidth>=1000?'false':'true'} dragConstraints={containerRef} whileDrag={{scale:.9}} className="w-[40%] h-full py-[20px] pr-[20px] max-[1062px]:w-[77%] max-[611px]:w-[100%] max-[611px]:p-[11px] max-[343px]:p-[4px] ">
           <motion.div  className="w-full h-full relative border-2 rounded-[3.5rem] border-slate-600 flex flex-col items-center gap-[2rem] p-[20px] overflow-y-scroll scroll-smooth hide-scroll" style={{justifyContent:totalCount == 0?'center':'',alignItems:totalCount == 0?'center':''}}>
          {totalCount == 0 ? <div> <p className="text-[4rem] text-white relative text-center max-[1302px]:text-[3rem] max-[1302px]:mb-[4rem]">your cart is empty</p> <img className="w-full max-[1302px]:h-[45vh]" src={EMPTEY} alt="" /></div> : 
          clikedProduct.map((item,i)=>{
